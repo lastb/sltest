@@ -17,6 +17,9 @@ class Kernel
     /** @var array конфигурация приложения */
     private $config;
 
+    /** @var Kernel инстанс ядра */
+    private static $instance;
+
     /**
      * Создает ядро, инициализирует, и возвращает его экземпляр. Singletone!
      *
@@ -26,19 +29,29 @@ class Kernel
      */
     public static function init($env)
     {
-        static $instance = null;
-        if (!$instance) {
-            $instance = new static($env);
+        if (!isset(static::$instance)) {
+            static::$instance = new static($env);
         }
 
-        return $instance;
+        return static::$instance;
+    }
+
+    /**
+     * Возвращает инстанс ядра.
+     *
+     * @return Kernel
+     */
+    public static function getInstance()
+    {
+        return static::$instance;
     }
 
     /**
      * Kernel constructor.
+     *
      * @param string $env окружение приложения.
      */
-    public function __construct($env)
+    private function __construct($env)
     {
         $this->env = $env;
         $loader = new ConfigLoader();
@@ -77,5 +90,15 @@ class Kernel
         }
 
         return $response;
+    }
+
+    /**
+     * Возвращает конфигурацию ядра.
+     *
+     * @return array конфигурация ядра.
+     */
+    public static function config()
+    {
+        return static::getInstance()->config;
     }
 }
