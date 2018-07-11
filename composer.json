@@ -1,0 +1,17 @@
+{
+    "name": "lb/sl-test-2",
+    "description": "Test task 2 for SmartLeads",
+    "type": "project",
+    "authors": [
+        {
+            "name": "lastbyte",
+            "email": "last00000000@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SLTest\\": "src/"
+        }
+    },
+    "require": {}
+}
