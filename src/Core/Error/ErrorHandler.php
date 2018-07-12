@@ -20,16 +20,14 @@ class ErrorHandler
      */
     public function exceptionHandler(\Throwable $e)
     {
+        $status_code = $e instanceof HttpException ? $e->getHttpStatusCode() : Response::HTTP_STATUS_INTERNAL_ERROR;
         $view = new View(new HtmlFormat(), Theme::render('error', [
             'error' => $e,
+            'status_code' => $status_code,
             'debug' => Kernel::config()['debug']
         ]));
         $response = $view->getResponse();
-        if ($e instanceof HttpException) {
-            $response->setStatus($e->getHttpStatusCode());
-        } else {
-            $response->setStatus(Response::HTTP_STATUS_INTERNAL_ERROR);
-        }
+        $response->setStatus($status_code);
 
         Helper::sendResponse($response);
     }
