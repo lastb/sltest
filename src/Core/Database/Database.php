@@ -50,15 +50,7 @@ class Database
      */
     protected function prepareQuery($query, array &$params)
     {
-        $prefix = $this->config['database']['prefix'] ?? false;
-        if ($prefix && preg_match_all('#\{(.*?)\}#us', $query, $matches, PREG_SET_ORDER) > 0) {
-            $replace = array();
-
-            foreach ($matches as $match) {
-                $replace[$match[0]] = $prefix . '_' . $match[1];
-            }
-            $query = strtr($query, $replace);
-        }
+        $this->replacePrefix($query);
 
         // ищем параметеры которые являются массивом, и создаем из них список параметров.
         $replace = array();
@@ -88,6 +80,24 @@ class Database
         $sth = $this->pdo->prepare($query);
 
         return $sth;
+    }
+
+    /**
+     * Добавляет префикс к таблице в запросе.
+     *
+     * @param string $query sql-запрос.
+     */
+    protected function replacePrefix(&$query)
+    {
+        $prefix = $this->config['database']['prefix'] ?? '';
+        if (preg_match_all('#\{(.*?)\}#us', $query, $matches, PREG_SET_ORDER) > 0) {
+            $replace = array();
+
+            foreach ($matches as $match) {
+                $replace[$match[0]] = $prefix ? $prefix . '_' . $match[1] : $match[1];
+            }
+            $query = strtr($query, $replace);
+        }
     }
 
     /**
@@ -149,6 +159,18 @@ class Database
         }
 
         return $rows_return ? $sth->rowCount() : $result;
+    }
+
+    /**
+     * Выполняет запрос к бд.
+     *
+     * @param string $query sql-запрос.
+     */
+    public function sqlQuery($query)
+    {
+        $this->replacePrefix($query);
+
+        $this->pdo->exec($query);
     }
 
     /**
