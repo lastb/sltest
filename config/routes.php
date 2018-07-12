@@ -5,6 +5,10 @@ return array(
       '/' => array(
           'controller' => 'SLTest\App\Controllers\Home::index'
       ),
+      '/deposit/list' => array(
+          'method' => 'GET',
+          'controller' => 'SLTest\App\Controllers\deposit::list'
+      ),
       '/feed-back/list' => array(
           'method' => 'GET',
           'args' => array(

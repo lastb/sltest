@@ -32,10 +32,11 @@ class PageController
      * Добавляет скрипт в секцию /body
      *
      * @param string $url путь до скрипта.
+     * @param string $type тип скрипта.
      */
-    protected function addScript($url)
+    protected function addScript($url, $type = 'text/javascript')
     {
-        $this->scripts[] = '<script src="' . $url . '" type="text/javascript"></script>';
+        $this->scripts[] = '<script src="' . $url . '" type="' . $type . '"></script>';
     }
 
     /**
@@ -78,6 +79,8 @@ class PageController
     protected function prepareRender(/** @noinspection PhpUnusedParameterInspection */&$vars)
     {
         $this->addHead('<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css" >');
+        $this->addHead('<link rel="stylesheet" type="text/css" href="/assets/css/style.css" >');
+
         $this->addScript('/assets/js/jquery-3.3.1.min.js');
         $this->addScript('/assets/js/bootstrap.bundle.min.js');
     }
