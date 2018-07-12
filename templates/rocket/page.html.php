@@ -2,6 +2,7 @@
 /** @var string $title */
 /** @var array $heads */
 /** @var array $scripts */
+/** @var string $uri */
 /** @var string $content */
 ?>
 <!DOCTYPE html>
@@ -13,6 +14,7 @@
 <body>
     <header class="pt-5 bg-light"></header>
     <div class="container mt-3">
+        <?php if ($uri != '/') :?><div class="mb-3"><a href="/">Главная</a></div><?php endif;?>
         <div><?php print $content;?></div>
     </div>
 

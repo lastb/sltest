@@ -3,6 +3,7 @@
 namespace SLTest\Core\Controllers;
 
 
+use SLTest\Core\Http\Request;
 use SLTest\Core\Theme\Theme;
 use SLTest\Core\View\Format\HtmlFormat;
 use SLTest\Core\View\View;
@@ -53,11 +54,12 @@ class PageController
      * Выполняет рендер страницы.
      *
      * @param string $template шаблон для рендера.
+     * @param Request $request http-запрос.
      * @param array $vars параметры шалобна.
      *
      * @return \SLTest\Core\View\View клас вывода.
      */
-    protected function renderPage($template, array $vars = [])
+    protected function renderPage($template, $request, array $vars = [])
     {
         $this->prepareRender($vars);
 
@@ -65,6 +67,7 @@ class PageController
             'title' => $this->title,
             'heads' => $this->heads,
             'scripts' => $this->scripts,
+            'uri' => $request->getUri(),
             'content' => Theme::render($template, $vars),
         );
 
