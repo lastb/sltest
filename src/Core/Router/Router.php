@@ -81,7 +81,10 @@ class Router
                 if (!$valid) {
                     throw new HttpException(Response::HTTP_STATUS_BAD_REQUEST, sprintf('Неправильный тип параметра "%s".', $arg_name));
                 }
+            } elseif (isset($options['default'])) {
+                $value = $options['default'];
             }
+
             $args[$arg_name] = $value;
         }
 
