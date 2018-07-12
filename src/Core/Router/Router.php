@@ -44,6 +44,7 @@ class Router
         $route['path'] = $path;
         $this->validateRoute($route, $request);
         $args = !empty($route['args']) ? $this->getRouteArgs($route['args'], $request) : [];
+        $args[] = $request;
 
         return $this->handleRoute($route, $args);
     }
