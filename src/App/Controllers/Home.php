@@ -3,13 +3,14 @@
 namespace SLTest\App\Controllers;
 
 
-use SLTest\Core\Http\Response;
+use SLTest\Core\Controllers\PageController;
 
-class Home
+class Home extends PageController
 {
     public function index()
     {
+        $this->setTitle('Текстовое задание для SL');
 
-        return new Response('index page');
+        return $this->renderPage('index');
     }
 }

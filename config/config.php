@@ -16,5 +16,6 @@ return array(
             'ATTR_ORACLE_NULLS' => 'NULL_TO_STRING'
         ),
         'debug' => true,
+        'theme' => 'rocket'
     )
 );

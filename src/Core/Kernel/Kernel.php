@@ -8,6 +8,7 @@ use SLTest\Core\Error\ErrorHandler;
 use SLTest\Core\Http\Request;
 use SLTest\Core\Http\Response;
 use SLTest\Core\Router\Router;
+use SLTest\Core\View\View;
 
 class Kernel
 {
@@ -85,6 +86,8 @@ class Kernel
         $data = $router->handleRequest($request);
         if ($data instanceof Response) {
             $response = $data;
+        } elseif ($data instanceof View) {
+            $response = $data->getResponse();
         } else {
             $response = new Response($data);
         }
