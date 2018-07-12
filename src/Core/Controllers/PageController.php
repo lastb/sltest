@@ -82,6 +82,6 @@ class PageController
         $this->addHead('<link rel="stylesheet" type="text/css" href="/assets/css/style.css" >');
 
         $this->addScript('/assets/js/jquery-3.3.1.min.js');
-        $this->addScript('/assets/js/bootstrap.bundle.min.js');
+        $this->addScript('/assets/js/bootstrap.min.js');
     }
 }
