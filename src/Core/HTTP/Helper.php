@@ -13,6 +13,7 @@ class Helper
     public static function createRequestFromGlobals()
     {
         $request = new Request($_SERVER['REQUEST_URI'], $_GET, $_POST, $_COOKIE, $_FILES, 'php://input');
+        $request->setMethod($_SERVER['REQUEST_METHOD']);
 
         foreach ($_SERVER as $key => $value) {
             if (strpos($key, 'HTTP_') === 0) {

@@ -56,6 +56,16 @@ class Request
     }
 
     /**
+     * Устанавливает метод http-запроса.
+     *
+     * @param string $method метод http-запроса
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
+    /**
      * Возвращает метод запроса.
      *
      * @return null|string если метод поддерживается возвращает имя метода, иначе null;
