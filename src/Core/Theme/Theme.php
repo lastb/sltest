@@ -19,14 +19,14 @@ class Theme
     public static function render($template, array $vars)
     {
         $theme = Kernel::config()['theme'] ?? 'default';
-        $path = TEMPLATE_DIR . '/' . $theme . '/' . $template . '.html.php';
-        if (!file_exists($path)) {
+        $_file_path = TEMPLATE_DIR . '/' . $theme . '/' . $template . '.html.php';
+        if (!file_exists($_file_path)) {
             throw new InvalidArgumentException(sprintf('Шаблон "%s" не найден в теме "%s".', $template, $theme));
         }
 
         ob_start();
-        extract($vars);
-        include $path;
+        extract($vars, EXTR_PREFIX_SAME, 'tpl_');
+        include $_file_path;
         $content = ob_get_contents();
         ob_end_clean();
 
