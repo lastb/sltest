@@ -3,5 +3,6 @@
 
 # Project
 /vendor/
+/storage/
 
 /config/config.prod.php

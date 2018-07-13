@@ -28,5 +28,16 @@ return array(
           ),
           'controller' => 'SLTest\App\Controllers\FeedBack::add'
       ),
+      '/tests/large-file' => array(
+          'args' => array(
+              'test' => ['type' => 'string'],
+              'test-options' => ['type' => 'array'],
+          ),
+          'controller' => 'SLTest\App\Controllers\Tests::largeFile'
+      ),
+      '/tests/large-file-generate' => array(
+          'method' => 'GET',
+          'controller' => 'SLTest\App\Controllers\Tests::largeFileGenerate'
+      )
   ),
 );
