@@ -35,7 +35,7 @@ class Router
      */
     public function handleRequest(Request $request)
     {
-        $path = $request->getUri();
+        $path = parse_url($request->getUri(), PHP_URL_PATH);
         if (empty($this->routes[$path])) {
             throw new HttpException(Response::HTTP_STATUS_NOT_FOUND, 'Маршрут не найден');
         }
