@@ -75,9 +75,26 @@ class Database
                 unset($params[$key]);
             }
         }
-
         $query = strtr($query, $replace);
         $sth = $this->pdo->prepare($query);
+
+        // bind params
+        foreach ($params as $key => $value) {
+            switch (gettype($value)) {
+                case 'integer':
+                    $type = \PDO::PARAM_INT;
+                    break;
+
+                case 'boolean':
+                    $type = \PDO::PARAM_BOOL;
+                    break;
+
+                default:
+                    $type = \PDO::PARAM_STR;
+            }
+
+            $sth->bindValue($key, $value, $type);
+        }
 
         return $sth;
     }
@@ -117,7 +134,7 @@ class Database
 
         try {
             $sth = $this->prepareQuery($query, $params);
-            $sth->execute($params);
+            $sth->execute();
         } catch (\PDOException $e) {
             throw new QueryException('Извините, произошла ошибка в базе данных.', (!empty($sth) ? $sth->queryString : $query), 0, $e);
         }
@@ -153,7 +170,7 @@ class Database
         try {
             $this->connect();
             $sth = $this->prepareQuery($query, $params);
-            $result = $sth->execute($params);
+            $result = $sth->execute();
         } catch (\PDOException $e) {
             throw new QueryException('Извините, произошла ошибка в базе данных.', (!empty($sth) ? $sth->queryString : $query), 0, $e);
         }
