@@ -66,8 +66,9 @@ class Router
             $value = $request->get($arg_name);
             if (isset($value)) {
                 switch ($options['type']) {
-                    case 'numeric':
+                    case 'int':
                         $valid = is_numeric($value);
+                        $value = intval($value);
                         break;
 
                     case 'string':
