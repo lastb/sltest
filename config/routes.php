@@ -12,7 +12,10 @@ return array(
       '/feed-back/list' => array(
           'method' => 'GET',
           'args' => array(
-              'page' => ['type' => 'numeric', 'default' => 0],
+              'nav_id' => ['type' => 'int', 'default' => 0],
+              'limit' => ['type' => 'int', 'default' => 5],
+              'forward' => ['type' => 'int', 'default' => 1],
+              'callback' => ['type' => 'string'],
           ),
           'controller' => 'SLTest\App\Controllers\FeedBack::list'
       ),
