@@ -4,6 +4,7 @@ namespace SLTest\Core\Controllers;
 
 
 use SLTest\Core\Http\Request;
+use SLTest\Core\Http\Response;
 use SLTest\Core\Theme\Theme;
 use SLTest\Core\View\Format\HtmlFormat;
 use SLTest\Core\View\View;
@@ -86,5 +87,18 @@ class PageController
 
         $this->addScript('/assets/js/jquery-3.3.1.min.js');
         $this->addScript('/assets/js/bootstrap.min.js');
+    }
+
+    /**
+     * Редирект страницы.
+     *
+     * @param string $new_url ссылка на которую будет перенаправлен браузер.
+     * @param int $status статус редиректа.
+     *
+     * @return Response http-ответ с заголовками редиректа.
+     */
+    protected function redirect($new_url, $status = Response::HTTP_STATUS_MOVED_TEMPORARILY)
+    {
+        return new Response('', $status, ['Location' => $new_url]);
     }
 }
