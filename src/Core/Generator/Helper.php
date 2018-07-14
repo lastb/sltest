@@ -3,6 +3,8 @@
 namespace SLTest\Core\Generator;
 
 
+use SLTest\Core\Exception\RuntimeException;
+
 class Helper
 {
     /**
@@ -27,7 +29,15 @@ class Helper
             $content .= trim($line) . "\n";
         } while(strlen($content) < $chunk_size);
 
-        $handle = fopen($dst, "w");
+        $dir = dirname($dst);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        if (($handle = fopen($dst, "w")) === false) {
+            throw new RuntimeException('Не удалось сгенерировать файл.');
+        }
+
         $chunk_amount = 0;
         do {
             fwrite($handle, $content);
