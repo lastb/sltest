@@ -75,6 +75,10 @@ class Router
                         $valid = is_string($value);
                         break;
 
+                    case 'array':
+                        $valid = is_array($value);
+                        break;
+
                     default:
                         $valid = false;
                 }
