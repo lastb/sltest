@@ -3,7 +3,9 @@ SL test example
 
 Пример решения тестового задания.
 
-Для начала необходимо создать файл config/config.prod.php, с примерно таким содержанием:
+
+Для начала необходимо запустить composer install для инициализации PSR-4.
+Затем создать файл config/config.prod.php, с примерно таким содержанием:
 ```
 return array(
     '@include' => 'config.php',
