@@ -8,10 +8,7 @@
  */
 function formatTrace(Throwable $error)
 {
-    $output = '';
-    foreach ($error->getTrace() as $i => $trace) {
-        $output .= "<li>#{$i} {$trace['file']}({$trace['line']}) {$trace['class']}{$trace['type']}{$trace['function']}";
-    }
+    $output = preg_replace('#(.+)([\r\n]+|$)#', '<li>\1</li>\2', $error->getTraceAsString());
     $output = '<ul>' . $output . '</ul>';
 
     return $output;
